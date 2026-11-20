@@ -188,7 +188,7 @@ function render() {
   else if (current.isBot) status = `${current.name} is thinking…`;
   else if (myTurn) status = viewer.hand.hasPlayable(top)
     ? "Your turn — play a matching card, or draw."
-    : "No matching card — click the draw pile.";
+    : "No matching card — tap the draw pile.";
   else status = `Waiting for ${current.name}…`;
   setStatus(status);
 
