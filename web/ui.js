@@ -163,7 +163,7 @@ function render() {
   circle.innerHTML = "";
   for (const p of game.players.toArray()) {
     const li = document.createElement("li");
-    li.className = "seat-chip" + (p === current ? " active" : "") + (p === viewer ? " me" : "");
+    li.className = "seat-chip" + (p === current ? " active" : "") + (p === viewer && p.name.toLowerCase() !== "you" ? " me" : "");
     const backs = Math.min(p.hand.size, 10);
     li.innerHTML = `
       <div class="chip-name">${escapeHtml(p.name)}${p.isBot ? ' <span class="tag">BOT</span>' : ""}</div>
@@ -199,7 +199,8 @@ function render() {
     $("#hand-title").textContent = "Cards hidden";
     return;
   }
-  $("#hand-title").textContent = `${viewer.name}'s hand · ${viewer.hand.size}`;
+  const owner = viewer.name.toLowerCase() === "you" ? "Your" : `${viewer.name}'s`;
+  $("#hand-title").textContent = `${owner} hand · ${viewer.hand.size}`;
   viewer.hand.toArray().forEach((card, i) => {
     const playable = card.matches(top);
     const cls = [
